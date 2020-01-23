@@ -5,10 +5,12 @@ import com.gerald.model.MemeService;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class MyWindow extends JFrame {
     private JLabel outputMeme;
-    private JButton buttonPrevious;
+    private JButton buttonPrevious, buttonOpenReddit, buttonNext;
     private JLabel title;
     private Color color;
 
@@ -20,14 +22,12 @@ public class MyWindow extends JFrame {
         addMouseListener(moveWindow);
         addMouseMotionListener(moveWindow);
 
-
         color = new Color(125,125,125);
         JPanel northPanel = new JPanel();
         JPanel centralPanel = new JPanel();
         JPanel southPanel = new JPanel();
         MemeService memeService = new MemeService(this);
-
-        //panel norte
+        //panel north
         title = new JLabel("Title: ");
         JButton buttonExit = new JButton("Exit");
         buttonExit.addActionListener(e -> System.exit(0));
@@ -47,12 +47,16 @@ public class MyWindow extends JFrame {
         centralPanel.setBackground(color);
 
         //panel south
-        JButton buttonOpenReddit = new JButton("Open");
+        buttonOpenReddit = new JButton("Open");
         buttonOpenReddit.addActionListener(e -> memeService.OpenMeme());
+        buttonOpenReddit.setEnabled(false);
         buttonPrevious = new JButton("Previous");
         buttonPrevious.addActionListener(e -> memeService.previous());
-        JButton buttonNext = new JButton("Next");
+        buttonPrevious.setEnabled(false);
+        buttonNext = new JButton("Next");
         buttonNext.addActionListener(e -> memeService.next());
+        buttonNext.setEnabled(false);
+
 
         southPanel.add(buttonOpenReddit);
         southPanel.add(buttonPrevious);
@@ -79,9 +83,14 @@ public class MyWindow extends JFrame {
     public void setButtonPreviousEnabled(boolean enabled){
         buttonPrevious.setEnabled(enabled);
     }
+    public void setButtonNextEnabled(boolean enabled){
+        buttonNext.setEnabled(enabled);
+    }
+    public void setButtonOpenEnabled(boolean enabled){
+        buttonOpenReddit.setEnabled(enabled);
+    }
 
     public Dimension getOutputMemeDimension(){
         return outputMeme.getSize();
     }
-
 }
