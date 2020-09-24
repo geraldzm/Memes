@@ -31,7 +31,7 @@ public class MemeService implements Runnable{
 
     public void OpenMeme(){
         try {
-            Runtime.getRuntime().exec(new String[]{"cmd", "/c","start chrome "+ getMeme().getPostLink()});
+            Runtime.getRuntime().exec("google-chrome "+ getMeme().getPostLink());
         } catch (IOException e) {
             e.printStackTrace();
         }
